@@ -19,6 +19,8 @@ def load_data():
     df['hour'] = df['time'].dt.hour
     df['weekday'] = df['date'].dt.day_name()
     df.dropna(subset=['date', 'hour'], inplace=True)
+    # Remove $ sign and convert to numeric
+    df['unit_price'] = df['unit_price'].astype(str).str.replace('$', '', regex=False)
     df['unit_price'] = pd.to_numeric(df['unit_price'], errors='coerce')
     df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce')
     df.dropna(subset=['unit_price', 'quantity'], inplace=True)
@@ -86,3 +88,4 @@ st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("---")
 st.markdown("🔧 Made by **Ashutosh Kumar**")
+
