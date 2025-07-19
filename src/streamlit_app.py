@@ -19,7 +19,7 @@ def load_data():
     df['hour'] = df['time'].dt.hour
     df['weekday'] = df['date'].dt.day_name()
     df.dropna(subset=['date', 'hour'], inplace=True)
-    # Remove $ sign and convert to numeric
+   
     df['unit_price'] = df['unit_price'].astype(str).str.replace('$', '', regex=False)
     df['unit_price'] = pd.to_numeric(df['unit_price'], errors='coerce')
     df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce')
@@ -33,7 +33,6 @@ if df.empty:
     st.warning("⚠️ No data loaded. Please upload a valid CSV file.")
     st.stop()
 
-# Sidebar filters
 st.sidebar.header("🎛️ Filter Options")
 branch = st.sidebar.multiselect("Branch", df['branch'].unique(), default=list(df['branch'].unique()))
 category = st.sidebar.multiselect("Category", df['category'].unique(), default=list(df['category'].unique()))
